@@ -2,6 +2,7 @@
 
 namespace Yoda\EventBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -9,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Yoda\EventBundle\Entity\Event;
 use Yoda\EventBundle\Form\EventType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+
 
 /**
  * Event controller.
@@ -44,6 +46,7 @@ class EventController extends Controller
      */
     public function newAction(Request $request)
     {
+       $this->checkusers();
         $event = new Event();
         $form = $this->createForm('Yoda\EventBundle\Form\EventType', $event);
         $form->handleRequest($request);
@@ -70,6 +73,7 @@ class EventController extends Controller
      */
     public function showAction(Event $event)
     {
+
         $deleteForm = $this->createDeleteForm($event);
 
         return $this->render('@Event/event/show.html.twig', array(
@@ -86,6 +90,7 @@ class EventController extends Controller
      */
     public function editAction(Request $request, Event $event)
     {
+        $this->checkusers();
         $deleteForm = $this->createDeleteForm($event);
         $editForm = $this->createForm('Yoda\EventBundle\Form\EventType', $event);
         $editForm->handleRequest($request);
@@ -113,6 +118,7 @@ class EventController extends Controller
      */
     public function deleteAction(Request $request, Event $event)
     {
+        $this->checkusers();
         $form = $this->createDeleteForm($event);
         $form->handleRequest($request);
 
@@ -134,13 +140,21 @@ class EventController extends Controller
      */
     private function createDeleteForm(Event $event)
     {
+        $this->checkusers();
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('event_delete', array('id' => $event->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;
     }
+//Comprobamos que se están intentando acceder a crear/editar/borrar como usuario
+    private function checkusers()
+    {
+        $securityContext = $this->get('security.authorization_checker');
+        if(!$securityContext->isGranted('ROLE_USER')){
+            throw new AccessDeniedException('Need ROLE_USER');
+        }
+    }
 
-   
 
 }
