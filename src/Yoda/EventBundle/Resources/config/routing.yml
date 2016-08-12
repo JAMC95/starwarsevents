@@ -1,0 +1,10 @@
+event_homepage:
+    path:     /hello/{fistName}/{count}
+    defaults: { _controller: EventBundle:Default:index }
+
+event_create:
+  path: /create/
+  defaults: { _controller: EventBundle:Default:create}
+
+
+

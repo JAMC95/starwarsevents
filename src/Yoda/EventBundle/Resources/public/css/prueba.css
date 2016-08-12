@@ -1,0 +1,29 @@
+.events a.link {
+    color:#fff;
+    font-size:18px;
+    font-family:Arial;
+    padding:20px 8px;
+    margin: 10px 20px 50px 50px;
+    position:relative;
+    text-decoration:none;
+
+}
+.events a.link:after {
+    position: absolute;
+    right: -4px;
+    top: 0px;
+    color: #ccc;
+}
+.events a.link:last-child:after {
+    display:none;
+}
+.events a.link:hover {
+    text-decoration:none;
+    color:#0ebb0e;
+}
+#menu {
+    height:80px;
+    margin-bottom:50px;
+    padding-left:162px;
+}
+

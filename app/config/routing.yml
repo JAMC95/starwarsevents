@@ -1,0 +1,15 @@
+event_event:
+    resource: "@EventBundle/Controller/EventController.php"
+    type:     annotation
+
+event:
+    resource: "@EventBundle/Resources/config/routing.yml"
+    prefix:   /
+login_form:
+  path: /login/
+  defaults: {_controller: UserBundle:Security:login}
+login_check:
+  path: /check/
+  defaults: {_controller: UserBundle:Security:loginCheck}
+logout:
+    path: /logout

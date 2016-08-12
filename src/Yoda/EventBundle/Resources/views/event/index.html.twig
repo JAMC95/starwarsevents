@@ -1,0 +1,42 @@
+{% extends 'EventBundle::layout.html.twig' %}
+
+{% block body %}
+
+    <section class="events">
+        <header id="menu">
+            <a class="button" href="{{ path('event_new') }}">Crear un nuevo evento </a>
+        </header>
+
+        {% for event in events %}
+            <article>
+                <header class="map-container">
+                    <img src="http://maps.googleapis.com/maps/api/staticmap?center={{ event.location | url_encode }}&markers=color:red%7Ccolor:red%7C{{ event.location | url_encode }}&zoom=14&size=150x150&maptype=roadmap&sensor=false" />
+                </header>
+                <section>
+
+                    <h3>
+                        <a href="{{ path('event_show', {'id': event.id}) }}">{{ event.name }}</a>
+                    </h3>
+
+                    <dl>
+                        <dt>donde:</dt>
+                        <dd>{{ event.location }}</dd>
+
+                        <dt>cuando:</dt>
+                        <dd>{{ event.time | date('g:ia / l M j, Y') }}</dd>
+
+                        <dt>quien:</dt>
+                        <dd>Todo # of people </dd>
+                    </dl>
+                </section>
+            </article>
+        {% endfor %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <a class="link" href="{{ path('logout') }}"> Sesión iniciada como {{ app.user.username }} click para desconectarse</a>
+        {% else %}
+            <a class="link" href="{{ path('login_form') }}">Conectarse</a>
+        {% endif %}
+
+    </section>
+{% endblock %}
