@@ -33,7 +33,7 @@
         {% endfor %}
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-            <a class="link" href="{{ path('logout') }}"> Sesión iniciada como {{ app.user.username }} click para desconectarse</a>
+            <a class="link" href="{{ path('logout') }}"> Hola {{ app.user.username }}, click para desconectarse</a>
         {% else %}
             <a class="link" href="{{ path('login_form') }}">Conectarse</a>
         {% endif %}

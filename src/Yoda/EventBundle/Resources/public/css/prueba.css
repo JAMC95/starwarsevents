@@ -10,7 +10,6 @@
 }
 .events a.link:after {
     position: absolute;
-    right: -4px;
     top: 0px;
     color: #ccc;
 }
