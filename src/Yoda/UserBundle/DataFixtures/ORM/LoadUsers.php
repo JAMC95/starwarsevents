@@ -24,8 +24,17 @@ public function load(ObjectManager $manager)
 {
     $user= new User();
     $user->setUsername('darth');
+    $user->setEmail('vader@molon.com');
     $user->setPassword($this->encodePassword($user,'darthpass'));
     $manager->persist($user);
+
+    $admin= new User();
+    $admin->setUsername('admin');
+    $admin->setPassword($this->encodePassword($admin,'admin pass'));
+    $admin->setRoles(array('ROLE_ADMIN'));
+    //$admin->setIsActive(false);
+    $admin->setEmail('vader2@molon.com');
+    $manager->persist($admin);
 
     $manager->flush();
 }

@@ -30,7 +30,8 @@ class EventController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
+        $userRepo = $em->getRepository('UserBundle:User');
+        //var_dump($userRepo->findOnebyUserNameOrEmail('admin'));die;
         $events = $em->getRepository('EventBundle:Event')->findAll();
 
         return array(
