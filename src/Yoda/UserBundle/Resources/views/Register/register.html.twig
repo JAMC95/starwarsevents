@@ -17,16 +17,17 @@
                     'label':'Usuario'
                 }) }}
                 {{ form_row(form.email) }}
-                {{ form_row(form.password.first,{
-                    'label':'Contraseña'
+                {{ form_row(form.password.first, {
+                    label: 'Contraseña'
                 }) }}
-                {{ form_row(form.password.second,{
-                    'label':'Repite la contraseña'
+
+                {{ form_row(form.password.second, {
+                    label: 'Repite la contraseña'
                 }) }}
 
                 {{ form_rest(form) }}
             </form>
-            <input type="submit" value="Registrarse"/>
+
         </article>
     </section>
 {% endblock %}
