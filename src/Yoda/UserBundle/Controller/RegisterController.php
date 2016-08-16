@@ -32,7 +32,8 @@ class RegisterController extends Controller
         ->add('username', TextType::class)
         ->add('email', EmailType::class)
         ->add('password',RepeatedType::class,array('type'=>PasswordType::class))
-        ->add('save', SubmitType::class,array('label'=>'Registrarse'))
+        ->add('save', SubmitType::class,array('label'=>'Registrarse','attr'=> array('class'=>'btn btn-primary pull-right')
+        ))
         ->getForm();
 
 
@@ -49,6 +50,10 @@ class RegisterController extends Controller
            $em->persist($user);
            $em->flush();
 
+           $this->addFlash(
+               'notice',
+               'Bienvenido a la estrella de la muerte!'
+           );
 
 
            return $this->redirectToRoute('event_index');

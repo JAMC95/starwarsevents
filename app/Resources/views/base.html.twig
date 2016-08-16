@@ -17,6 +17,8 @@
             <link rel="stylesheet" href="{{ asset('bundles/event/css/events.css') }}"/>
             <link rel="stylesheet" href="{{ asset('bundles/event/css/main.css') }}"/>
             <link rel="stylesheet" href="{{ asset('bundles/event/css/prueba.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/event/css/bootstrap.css') }}"/>
+            <link rel="stylesheet" href="{{ asset('bundles/event/css/bootstrap.min.css') }}"/>
 
         {% endblock %}
 
@@ -24,7 +26,13 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div class="alert alert-success">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
     </body>
 </html>
