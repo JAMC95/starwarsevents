@@ -13,9 +13,16 @@
             <form action="{{ path('register_form') }}" method="post">
                 {{ form_errors(form) }}
 
-                {{ form_row(form.username) }}
+                {{ form_row(form.username,{
+                    'label':'Usuario'
+                }) }}
                 {{ form_row(form.email) }}
-                {{ form_row(form.password) }}
+                {{ form_row(form.password.first,{
+                    'label':'Contraseña'
+                }) }}
+                {{ form_row(form.password.second,{
+                    'label':'Repite la contraseña'
+                }) }}
 
                 {{ form_rest(form) }}
             </form>

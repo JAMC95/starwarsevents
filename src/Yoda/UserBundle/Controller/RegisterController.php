@@ -20,8 +20,10 @@ class RegisterController extends Controller
    public function registerAction() {
     $form=$this->createFormBuilder()
         ->add('username','Symfony\Component\Form\Extension\Core\Type\TextType')
-        ->add('email','Symfony\Component\Form\Extension\Core\Type\TextType')
-        ->add('password','Symfony\Component\Form\Extension\Core\Type\PasswordType')
+        ->add('email','Symfony\Component\Form\Extension\Core\Type\EmailType')
+        ->add('password','Symfony\Component\Form\Extension\Core\Type\RepeatedType',array(
+            'type'=> 'Symfony\Component\Form\Extension\Core\Type\PasswordType'
+        ))
         ->getForm();
        return array('form'=>$form->createView());
    }
