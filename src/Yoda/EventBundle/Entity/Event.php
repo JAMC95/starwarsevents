@@ -2,6 +2,7 @@
 
 namespace Yoda\EventBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Yoda\UserBundle\Entity\User;
 
@@ -59,6 +60,27 @@ class Event
     /**
      * @return mixed
      */
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Yoda\UserBundle\Entity\User")
+     */
+    private $attendees;
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getAttendees()
+    {
+        return $this->attendees;
+    }
+
+    public function __construct()
+    {
+        $this->attendees = new ArrayCollection();
+
+
+    }
+
     public function getOwner()
     {
         return $this->owner;
@@ -177,6 +199,15 @@ class Event
     {
         return $this->details;
     }
-    
-    
+
+    /**
+     * @param \Yoda\UserBundle\Entity\User $user
+     * @return bool
+     */
+    public function hasAttendee(User $user)
+    {
+        return $this->getAttendees()->contains($user);
+    }
+
+
 }

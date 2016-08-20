@@ -17,3 +17,7 @@ logout:
 register_form:
   path: /register/
   defaults: {_controller: UserBundle:Register:register}
+
+attend:
+  path: /{id}/attend
+  defaults: {_controller: "EventBundle:Event:attend"}

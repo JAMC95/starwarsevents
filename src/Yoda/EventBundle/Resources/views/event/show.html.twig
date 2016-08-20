@@ -29,11 +29,26 @@
                     <dt>que:</dt>
                     <dd>{{ event.details }}</dd>
 
-                    <dt>quien:</dt>
+                    <dt>creador:</dt>
+                    <dd>{{ event.owner.username }}</dd>
+                    <dt>asistentes:</dt>
+                    {{ event.attendees|length }} vendrán
                     <dd>
                         <ul class="users">
-                            <li></li>
+                            {% for attendee in event.attendees %}
+                            <li>{{ attendee.username }}</li>
+                                {% else %}
+                                <li>Nadie por aquí</li>
+                            {% endfor %}
                         </ul>
+                       {% if event.hasAttendee(app.user) %}
+                           <a href="{{ path('event_unattend',{id: event.id} ) }}" class="btn btn-danger btn-xs">Ya no quiero ir</a>
+
+                       {% else %}
+                           <a href="{{ path('event_attend',{id: event.id} ) }}" class="btn btn-success btn-xs">Yo voy!</a>
+
+                        {% endif %}
+
                     </dd>
                 </dl>
             </section>

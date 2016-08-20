@@ -152,6 +152,48 @@ class EventController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @Route("/{id}/attend", name="event_attend")
+     * @Method({"GET", "POST"})
+     */
+    public function attendAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('EventBundle:Event')->find($id);
+
+        if(!$event){
+            throw $this->createNotFoundException('No encontrado');
+        }
+
+
+        $event->getAttendees()->add($this->getUser());
+
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event_show',array('id'=>$id));
+    }
+
+    /**
+     * @Route("/{id}/unattend", name="event_unattend")
+     * @Method({"GET", "POST"})
+     */
+    public function unattendAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $event = $em->getRepository('EventBundle:Event')->find($id);
+
+        if(!$event){
+            throw $this->createNotFoundException('No encontrado');
+        }
+        $event->getAttendees()->removeElement($this->getUser());
+
+        $em->persist($event);
+        $em->flush();
+
+        return $this->redirectToRoute('event_show',array('id'=>$id));
+
+
+    }
 //Comprobamos que se están intentando acceder a crear/editar/borrar como usuario
     private function checkusers()
     {
@@ -168,6 +210,8 @@ class EventController extends Controller
             throw new AccessDeniedException('No eres el dueño');
         }
     }
+
+
 
 
 }
