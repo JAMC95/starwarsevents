@@ -14,7 +14,9 @@
             <section>
                 <h1>
                     {{ event.name }}
+                    {% if app.user== event.owner %}
                     <a class="button" href="{{ path('event_edit', {'id': event.id}) }}">editar</a>
+                    {% endif %}
                 </h1>
 
                 <dl>
@@ -30,7 +32,7 @@
                     <dt>quien:</dt>
                     <dd>
                         <ul class="users">
-                            <li>nobody yet!</li>
+                            <li></li>
                         </ul>
                     </dd>
                 </dl>

@@ -4,12 +4,14 @@ namespace Yoda\EventBundle\DataFixtures\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Yoda\EventBundle\Entity\Event;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 
-class LoadUserData implements FixtureInterface
-{
+class LoadUserData implements FixtureInterface, OrderedFixtureInterface{
 public function load(ObjectManager $manager)
 {
+    $joxe = $manager->getRepository('UserBundle:User')
+        ->findOnebyUserNameOrEmail('darth');
     $event1 = new Event();
     $event1->setName('Darth\'s Birthday Party');
     $event1->setLocation('Deathstar');
@@ -23,6 +25,18 @@ public function load(ObjectManager $manager)
     $event2->setTime( new \DateTime('1990-05-05'));
     $event2->setDetails('El almendro');
     $manager->persist($event2);
+    $event1->setOwner($joxe);
+    $event2->setOwner($joxe);
     $manager->flush();
 }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+       return 20;
+    }
 }

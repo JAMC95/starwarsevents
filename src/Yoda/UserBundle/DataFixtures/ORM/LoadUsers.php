@@ -7,10 +7,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Yoda\UserBundle\Entity\User;
 use Yoda\UserBundle\UserBundle;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 
-class LoadUsers implements FixtureInterface, ContainerAwareInterface
-{
+class LoadUsers implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface{
 
     /*
      * @var ContainerInterface
@@ -48,5 +48,15 @@ public function load(ObjectManager $manager)
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container=$container;
+    }
+
+    /**
+     * Get the order of this fixture
+     *
+     * @return integer
+     */
+    public function getOrder()
+    {
+        return 10;
     }
 }

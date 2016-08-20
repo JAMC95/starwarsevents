@@ -53,6 +53,8 @@ class EventController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->getUser();
+            $event->setOwner($user);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -103,6 +105,7 @@ class EventController extends Controller
 
             return $this->redirectToRoute('event_edit', array('id' => $event->getId()));
         }
+        $this->enforceOwnerSecurity($event);
 
         return $this->render('@Event/event/edit.html.twig', array(
             'event' => $event,
@@ -119,6 +122,7 @@ class EventController extends Controller
      */
     public function deleteAction(Request $request, Event $event)
     {
+        $this->enforceOwnerSecurity($event);
         $this->checkusers();
         $form = $this->createDeleteForm($event);
         $form->handleRequest($request);
@@ -154,6 +158,14 @@ class EventController extends Controller
         $securityContext = $this->get('security.authorization_checker');
         if(!$securityContext->isGranted('ROLE_USER')){
             throw new AccessDeniedException('Need ROLE_USER');
+        }
+    }
+
+    private function enforceOwnerSecurity(Event $event){
+        $user = $this->getUser();
+
+        if($user != $event->getOwner()){
+            throw new AccessDeniedException('No eres el dueño');
         }
     }
 
