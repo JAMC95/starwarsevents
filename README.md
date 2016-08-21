@@ -1,28 +1,18 @@
-Symfony Standard Edition
+StarWars Event
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony
-application that you can use as the skeleton for your new applications.
+Web App creada a partir de un curso de KNPUniversity, en este curso se desarrolla una web app con la que podremos crear, borrar y modificar eventos, designar eventos al usuario creado,
+cada usuario podrá decidir si asiste o no al evento creado.
+Un usuario no puede borrar ni editar eventos que no han sido creados por él
+Un usuario puede darse de alta a través de ruta-de-la-web-app/register/
 
-For details on how to download and get started with Symfony, see the
-[Installation][1] chapter of the Symfony Documentation.
+Para el diseño de la web se han utilizado tecnologías tales como CSS y librerías como Bootstrap haciendo un diseño atractivo en el twig
 
-What's inside?
+Se pueden ver que las rutas algunas son definidas en el archivo routing.yml y otras en el mismo Controller. Esto se ha hecho sabiendo que no es lo más óptimo (ya que queda más limpio ponerlo
+en un mismo archivo/sitio) pero decidí hacerlo así para ver que hay dos tipos de formas, ambas aceptadas por la misma web de Symfony(a fecha de hoy)
+
+¿Que bundles se utilizan?
 --------------
-
-The Symfony Standard Edition is configured with the following defaults:
-
-  * An AppBundle you can use to start coding;
-
-  * Twig as the only configured template engine;
-
-  * Doctrine ORM/DBAL;
-
-  * Swiftmailer;
-
-  * Annotations enabled for everything.
-
-It comes pre-configured with the following bundles:
 
   * **FrameworkBundle** - The core Symfony framework bundle
 
@@ -56,13 +46,17 @@ It comes pre-configured with the following bundles:
 All libraries and bundles included in the Symfony Standard Edition are
 released under the MIT or BSD license.
 
-Enjoy!
+Algunas imágenes de muestra de la aplicación en marcha:
 
-[1]:  https://symfony.com/doc/3.0/book/installation.html
-[6]:  https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  https://symfony.com/doc/3.0/book/doctrine.html
-[8]:  https://symfony.com/doc/3.0/book/templating.html
-[9]:  https://symfony.com/doc/3.0/book/security.html
-[10]: https://symfony.com/doc/3.0/cookbook/email.html
-[11]: https://symfony.com/doc/3.0/cookbook/logging/monolog.html
-[13]: https://symfony.com/doc/3.0/bundles/SensioGeneratorBundle/index.html
+ ![ScreenShot](/img/principal.png?raw=true "Pantalla Principal")
+ ![ScreenShot](/img/login.png?raw=true "Pantalla Login")
+ ![ScreenShot](/img/registrandose.png?raw=true "Pantalla Registro")
+ ![ScreenShot](/img/verevento.png?raw=true "Viendo un evento")
+ ![ScreenShot](/img/editandounevento.png?raw=true "Editando un evento")
+ ![ScreenShot](/img/clickenasistir.png?raw=true "Clickeamos para asistir a un evento")
+ ![ScreenShot](/img/botondenoasistencia.png?raw=true "Vemos el botón rojo para decir que no asistiremos")
+ ![ScreenShot](/img/clickennoasistir.png?raw=true "Mensaje que nos saldrá si decidimos pulsar el botón de no asistir")
+
+
+
+

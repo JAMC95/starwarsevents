@@ -13,10 +13,10 @@ public function load(ObjectManager $manager)
     $joxe = $manager->getRepository('UserBundle:User')
         ->findOnebyUserNameOrEmail('darth');
     $event1 = new Event();
-    $event1->setName('Darth\'s Birthday Party');
+    $event1->setName('Fiesta sorpresa de Darth');
     $event1->setLocation('Deathstar');
     $event1->setTime( new \DateTime('1990-05-05'));
-    $event1->setDetails('Ha! Darth HATES surprises!!!!');
+    $event1->setDetails('Darth odia las sorpesas!!!!');
     $manager->persist($event1);
 
     $event2 = new Event();

@@ -26,7 +26,11 @@
                         <dd>{{ event.time | date('g:ia / l M j, Y') }}</dd>
 
                         <dt>quien:</dt>
-                        <dd>Todo # of people </dd>
+                        <dd>|{% for attendee in event.attendees %}
+                               {{ attendee.username }} |
+                            {% else %}
+                                Nadie por aquí
+                            {% endfor %} </dd>
                     </dl>
                 </section>
             </article>
@@ -36,6 +40,7 @@
             <a class="link" href="{{ path('logout') }}"> Hola {{ app.user.username }}, click para desconectarse</a>
         {% else %}
             <a class="link" href="{{ path('login_form') }}">Conectarse</a>
+            <a class="link" href="{{ path('register_form') }}">Registrarse</a>
         {% endif %}
 
     </section>

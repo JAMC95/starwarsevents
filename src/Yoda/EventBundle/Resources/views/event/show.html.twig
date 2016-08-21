@@ -42,10 +42,10 @@
                             {% endfor %}
                         </ul>
                        {% if event.hasAttendee(app.user) %}
-                           <a href="{{ path('event_unattend',{id: event.id} ) }}" class="btn btn-danger btn-xs">Ya no quiero ir</a>
+                           <a href="{{ path('event_unattend',{id: event.id} ) }}" class="btn btn-danger btn-xs js-attend-toggle">Ya no quiero ir</a>
 
                        {% else %}
-                           <a href="{{ path('event_attend',{id: event.id} ) }}" class="btn btn-success btn-xs">Yo voy!</a>
+                           <a href="{{ path('event_attend',{id: event.id} ) }}" class="btn btn-success btn-xs js-attend-toggle">Yo voy!</a>
 
                         {% endif %}
 
@@ -54,4 +54,32 @@
             </section>
         </article>
     </section>
+
+
 {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+
+     <script>
+         $(document).ready(function() {
+             $('.js-attend-toggle').on('click', function(e) {
+
+                 e.preventDefault();
+
+                 var $anchor = $(this);
+                 var url = $(this).attr('href')+'.json';
+
+                 $.post(url, null, function(data) {
+                     if (data.attending) {
+                         var message = 'Nos vemos ahí!';
+                     } else {
+                         var message = 'Te echaremos de menos!';
+                     }
+
+                     $anchor.after('<span class="label label-default">&#10004; '+message+'</span>');
+                     $anchor.hide();
+                 });
+             });
+         });
+     </script>
+ {% endblock %}

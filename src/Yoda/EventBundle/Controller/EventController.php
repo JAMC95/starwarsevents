@@ -3,12 +3,13 @@
 namespace Yoda\EventBundle\Controller;
 
 use Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Yoda\EventBundle\Entity\Event;
-use Yoda\EventBundle\Form\EventType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 
@@ -153,11 +154,8 @@ class EventController extends Controller
         ;
     }
 
-    /**
-     * @Route("/{id}/attend", name="event_attend")
-     * @Method({"GET", "POST"})
-     */
-    public function attendAction($id){
+
+    public function attendAction($id, $format){
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('EventBundle:Event')->find($id);
 
@@ -170,15 +168,21 @@ class EventController extends Controller
 
         $em->persist($event);
         $em->flush();
+        if($format=='json'){
+            $data = array(
+                'attending'=> true,
+            );
+
+            $response = new JsonResponse($data);
+
+            return $response;
+        }
 
         return $this->redirectToRoute('event_show',array('id'=>$id));
     }
 
-    /**
-     * @Route("/{id}/unattend", name="event_unattend")
-     * @Method({"GET", "POST"})
-     */
-    public function unattendAction($id){
+  
+    public function unattendAction($id, $format){
         $em = $this->getDoctrine()->getManager();
         $event = $em->getRepository('EventBundle:Event')->find($id);
 
@@ -189,11 +193,23 @@ class EventController extends Controller
 
         $em->persist($event);
         $em->flush();
+        if($format=='json'){
+            $data = array(
+                'attending'=> false,
+            );
+
+            $response = new JsonResponse($data);
+
+            return $response;
+        }
 
         return $this->redirectToRoute('event_show',array('id'=>$id));
 
 
     }
+
+
+
 //Comprobamos que se están intentando acceder a crear/editar/borrar como usuario
     private function checkusers()
     {

@@ -18,6 +18,14 @@ register_form:
   path: /register/
   defaults: {_controller: UserBundle:Register:register}
 
-attend:
-  path: /{id}/attend
-  defaults: {_controller: "EventBundle:Event:attend"}
+event_attend:
+  path: /{id}/attend.{format}
+  defaults: {_controller: "EventBundle:Event:attend", format: json}
+  requirements:
+      format: json
+
+event_unattend:
+  path: /{id}/unattend.{format}
+  defaults: {_controller: "EventBundle:Event:unattend", format: json}
+  requirements:
+        format: json
